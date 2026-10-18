@@ -1,5 +1,6 @@
 package com.api.arthur.entity;
 
+import com.api.arthur.exception.BusinessRuleException;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -57,14 +58,14 @@ public class Product {
     public void removeStock(int quantity) {
         validateQuantity(quantity);
         if (quantity > this.quantityInStock) {
-            throw new IllegalArgumentException("Estoque insuficiente. Disponível: " + this.quantityInStock);
+            throw new BusinessRuleException("Estoque insuficiente. Disponível: " + quantityInStock);
         }
         this.quantityInStock -= quantity;
     }
 
     private void validateQuantity(int quantity) {
         if (quantity <= 0) {
-            throw new IllegalArgumentException("A quantidade deve ser maior que zero.");
+            throw new BusinessRuleException("A quantidade deve ser maior que zero. ");
         }
     }
 
