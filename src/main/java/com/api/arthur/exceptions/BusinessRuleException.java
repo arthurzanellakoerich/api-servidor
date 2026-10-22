@@ -1,4 +1,4 @@
-package com.api.arthur.exception;
+package com.api.arthur.exceptions;
 
 public class BusinessRuleException extends RuntimeException {
 

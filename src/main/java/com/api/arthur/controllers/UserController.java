@@ -1,8 +1,8 @@
-package com.api.arthur.controller;
+package com.api.arthur.controllers;
 
-import com.api.arthur.dto.UserRequest;
-import com.api.arthur.dto.UserResponse;
-import com.api.arthur.service.UserService;
+import com.api.arthur.dtos.UserRequest;
+import com.api.arthur.dtos.UserResponse;
+import com.api.arthur.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

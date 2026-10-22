@@ -1,11 +1,11 @@
-package com.api.arthur.service;
+package com.api.arthur.services;
 
-import com.api.arthur.dto.UserRequest;
-import com.api.arthur.dto.UserResponse;
-import com.api.arthur.entity.Role;
-import com.api.arthur.entity.User;
-import com.api.arthur.exception.ResourceNotFoundException;
-import com.api.arthur.repository.UserRepository;
+import com.api.arthur.dtos.UserRequest;
+import com.api.arthur.dtos.UserResponse;
+import com.api.arthur.enums.Role;
+import com.api.arthur.entitys.User;
+import com.api.arthur.exceptions.ResourceNotFoundException;
+import com.api.arthur.repositorys.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

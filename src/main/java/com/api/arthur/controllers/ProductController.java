@@ -1,9 +1,9 @@
-package com.api.arthur.controller;
+package com.api.arthur.controllers;
 
-import com.api.arthur.dto.ProductRequest;
-import com.api.arthur.dto.ProductResponse;
-import com.api.arthur.dto.StockRequest;
-import com.api.arthur.service.ProductService;
+import com.api.arthur.dtos.ProductRequest;
+import com.api.arthur.dtos.ProductResponse;
+import com.api.arthur.dtos.StockRequest;
+import com.api.arthur.services.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

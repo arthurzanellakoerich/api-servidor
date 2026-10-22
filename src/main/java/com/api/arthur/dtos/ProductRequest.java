@@ -1,4 +1,4 @@
-package com.api.arthur.dto;
+package com.api.arthur.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

@@ -1,4 +1,4 @@
-package com.api.arthur.dto;
+package com.api.arthur.dtos;
 
 import java.math.BigDecimal;
 import java.util.UUID;

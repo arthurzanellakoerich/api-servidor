@@ -1,4 +1,4 @@
-package com.api.arthur.entity;
+package com.api.arthur.entitys;
 
 import jakarta.persistence.*;
 
@@ -24,12 +24,11 @@ public class OrderItem {
     @Column(nullable = false)
     private int quantity;
 
-    // preço do produto NO MOMENTO da compra
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal unitPrice;
 
     protected OrderItem() {
-        // exigido pelo JPA
+
     }
 
     OrderItem(Order order, Product product, int quantity) {

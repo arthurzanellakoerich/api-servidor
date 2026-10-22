@@ -1,6 +1,7 @@
-package com.api.arthur.entity;
+package com.api.arthur.entitys;
 
-import com.api.arthur.exception.BusinessRuleException;
+import com.api.arthur.enums.OrderStatus;
+import com.api.arthur.exceptions.BusinessRuleException;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -32,7 +33,7 @@ public class Order {
     private List<OrderItem> items = new ArrayList<>();
 
     protected Order() {
-        // exigido pelo JPA
+
     }
 
     public Order(User user) {
@@ -42,7 +43,7 @@ public class Order {
     }
 
     public void addItem(Product product, int quantity) {
-        product.removeStock(quantity); // valida a quantidade e confere o saldo
+        product.removeStock(quantity);
         items.add(new OrderItem(this, product, quantity));
     }
 

@@ -1,6 +1,6 @@
-package com.api.arthur.dto;
+package com.api.arthur.dtos;
 
-import com.api.arthur.entity.Role;
+import com.api.arthur.enums.Role;
 
 import java.util.UUID;
 

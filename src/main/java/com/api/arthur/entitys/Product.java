@@ -1,6 +1,6 @@
-package com.api.arthur.entity;
+package com.api.arthur.entitys;
 
-import com.api.arthur.exception.BusinessRuleException;
+import com.api.arthur.exceptions.BusinessRuleException;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;

@@ -1,5 +1,6 @@
-package com.api.arthur.entity;
+package com.api.arthur.entitys;
 
+import com.api.arthur.enums.Role;
 import jakarta.persistence.*;
 
 import java.util.UUID;

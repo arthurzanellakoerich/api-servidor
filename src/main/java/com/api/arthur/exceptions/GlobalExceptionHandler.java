@@ -1,6 +1,6 @@
-package com.api.arthur.exception;
+package com.api.arthur.exceptions;
 
-import com.api.arthur.dto.ErrorResponse;
+import com.api.arthur.dtos.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

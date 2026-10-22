@@ -1,6 +1,6 @@
-package com.api.arthur.repository;
+package com.api.arthur.repositorys;
 
-import com.api.arthur.entity.User;
+import com.api.arthur.entitys.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
