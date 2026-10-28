@@ -61,7 +61,7 @@ public class Order {
                     "Só é possível cancelar um pedido com status CREATED. Status atual: " + status);
         }
         this.status = OrderStatus.CANCELED;
-        items.forEach(item -> item.getProduct().addStock(item.getQuantity())); // devolve o estoque
+        items.forEach(item -> item.getProduct().addStock(item.getQuantity()));
     }
 
     public BigDecimal getTotal() {
