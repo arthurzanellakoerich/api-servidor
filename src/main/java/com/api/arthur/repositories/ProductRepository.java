@@ -1,6 +1,6 @@
-package com.api.arthur.repositorys;
+package com.api.arthur.repositories;
 
-import com.api.arthur.entitys.Product;
+import com.api.arthur.entities.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

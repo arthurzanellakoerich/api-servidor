@@ -3,9 +3,9 @@ package com.api.arthur.services;
 import com.api.arthur.dtos.ProductRequest;
 import com.api.arthur.dtos.ProductResponse;
 import com.api.arthur.dtos.StockRequest;
-import com.api.arthur.entitys.Product;
+import com.api.arthur.entities.Product;
 import com.api.arthur.exceptions.ResourceNotFoundException;
-import com.api.arthur.repositorys.ProductRepository;
+import com.api.arthur.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

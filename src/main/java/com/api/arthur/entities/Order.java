@@ -1,4 +1,4 @@
-package com.api.arthur.entitys;
+package com.api.arthur.entities;
 
 import com.api.arthur.enums.OrderStatus;
 import com.api.arthur.exceptions.BusinessRuleException;

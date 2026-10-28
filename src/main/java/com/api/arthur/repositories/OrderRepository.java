@@ -1,6 +1,6 @@
-package com.api.arthur.repositorys;
+package com.api.arthur.repositories;
 
-import com.api.arthur.entitys.Order;
+import com.api.arthur.entities.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
