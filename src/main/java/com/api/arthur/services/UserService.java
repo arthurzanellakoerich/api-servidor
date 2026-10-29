@@ -34,8 +34,13 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public UserResponse findById(UUID id) {
-        return toResponse(getUserOrThrow(id));
+    public UserResponse findById(UUID id, String email, boolean isAdmin) {
+        User user = getUserOrThrow(id);
+
+        if (!isAdmin && !user.getEmail().equals(email)) {
+            throw new ResourceNotFoundException("Usuário não encontrado: " + id);
+        }
+        return toResponse(user);
     }
 
     @Transactional
