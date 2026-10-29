@@ -4,6 +4,7 @@ import com.api.arthur.dtos.ProductRequest;
 import com.api.arthur.dtos.ProductResponse;
 import com.api.arthur.dtos.StockRequest;
 import com.api.arthur.entities.Product;
+import com.api.arthur.exceptions.BusinessRuleException;
 import com.api.arthur.exceptions.ResourceNotFoundException;
 import com.api.arthur.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,9 @@ public class ProductService {
 
     @Transactional
     public ProductResponse create(ProductRequest request) {
+        if (productRepository.existsByName(request.name())) {
+            throw new BusinessRuleException("Já existe um produto com o nome: " + request.name());
+        }
         Product product = new Product();
         product.setName(request.name());
         product.setPrice(request.price());
