@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.security.core.Authentication;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,27 +27,41 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity<List<OrderResponse>> findAll() {
-        return ResponseEntity.ok(orderService.findAll());
+    public ResponseEntity<List<OrderResponse>> findAll(Authentication authentication) {
+        return ResponseEntity.ok(
+                orderService.findAll(authentication.getName(), isAdmin(authentication)));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<OrderResponse> findById(@PathVariable UUID id) {
-        return ResponseEntity.ok(orderService.findById(id));
+    private boolean isAdmin(Authentication authentication) {
+        return authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
     }
 
     @PostMapping
-    public ResponseEntity<OrderResponse> create(@Valid @RequestBody OrderRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(orderService.create(request));
+    public ResponseEntity<OrderResponse> create(@Valid @RequestBody OrderRequest request,
+                                                Authentication authentication) {
+        OrderResponse response = orderService.create(authentication.getName(), request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<OrderResponse> findById(@PathVariable UUID id,
+                                                  Authentication authentication) {
+        return ResponseEntity.ok(
+                orderService.findById(id, authentication.getName(), isAdmin(authentication)));
     }
 
     @PostMapping("/{id}/pay")
-    public ResponseEntity<OrderResponse> pay(@PathVariable UUID id) {
-        return ResponseEntity.ok(orderService.pay(id));
+    public ResponseEntity<OrderResponse> pay(@PathVariable UUID id,
+                                             Authentication authentication) {
+        return ResponseEntity.ok(
+                orderService.pay(id, authentication.getName(), isAdmin(authentication)));
     }
 
     @PostMapping("/{id}/cancel")
-    public ResponseEntity<OrderResponse> cancel(@PathVariable UUID id) {
-        return ResponseEntity.ok(orderService.cancel(id));
+    public ResponseEntity<OrderResponse> cancel(@PathVariable UUID id,
+                                                Authentication authentication) {
+        return ResponseEntity.ok(
+                orderService.cancel(id, authentication.getName(), isAdmin(authentication)));
     }
 }

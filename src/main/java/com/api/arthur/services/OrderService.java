@@ -37,8 +37,12 @@ public class OrderService {
     }
 
     @Transactional(readOnly = true)
-    public List<OrderResponse> findAll() {
-        return orderRepository.findAll().stream().map(this::toResponse).toList();
+    public List<OrderResponse> findAll(String email, boolean isAdmin) {
+        List<Order> orders = isAdmin
+                ? orderRepository.findAll()
+                : orderRepository.findByUserEmail(email);
+
+        return orders.stream().map(this::toResponse).toList();
     }
 
     @Transactional(readOnly = true)
@@ -46,15 +50,10 @@ public class OrderService {
         return orderRepository.findByUserId(userId).stream().map(this::toResponse).toList();
     }
 
-    @Transactional(readOnly = true)
-    public OrderResponse findById(UUID id) {
-        return toResponse(getOrderOrThrow(id));
-    }
-
     @Transactional
-    public OrderResponse create(OrderRequest request) {
-        User user = userRepository.findById(request.userId())
-                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado: " + request.userId()));
+    public OrderResponse create(String email, OrderRequest request) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado: " + email));
 
         Order order = new Order(user);
         Set<UUID> productIds = new HashSet<>();
@@ -72,16 +71,21 @@ public class OrderService {
         return toResponse(orderRepository.save(order));
     }
 
+    @Transactional(readOnly = true)
+    public OrderResponse findById(UUID id, String email, boolean isAdmin) {
+        return toResponse(getOrderForUser(id, email, isAdmin));
+    }
+
     @Transactional
-    public OrderResponse pay(UUID id) {
-        Order order = getOrderOrThrow(id);
+    public OrderResponse pay(UUID id, String email, boolean isAdmin) {
+        Order order = getOrderForUser(id, email, isAdmin);
         order.pay();
         return toResponse(order);
     }
 
     @Transactional
-    public OrderResponse cancel(UUID id) {
-        Order order = getOrderOrThrow(id);
+    public OrderResponse cancel(UUID id, String email, boolean isAdmin) {
+        Order order = getOrderForUser(id, email, isAdmin);
         order.cancel();
         return toResponse(order);
     }
@@ -89,6 +93,16 @@ public class OrderService {
     private Order getOrderOrThrow(UUID id) {
         return orderRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Pedido não encontrado: " + id));
+    }
+
+    private Order getOrderForUser(UUID id, String email, boolean isAdmin) {
+        Order order = getOrderOrThrow(id);
+        boolean isOwner = order.getUser().getEmail().equals(email);
+
+        if (!isAdmin && !isOwner) {
+            throw new ResourceNotFoundException("Pedido não encontrado: " + id);
+        }
+        return order;
     }
 
     private OrderResponse toResponse(Order order) {
