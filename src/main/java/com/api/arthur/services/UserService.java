@@ -9,6 +9,7 @@ import com.api.arthur.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.api.arthur.exceptions.BusinessRuleException;
 
 import java.util.List;
 import java.util.UUID;
@@ -42,9 +43,12 @@ public class UserService {
         }
         return toResponse(user);
     }
-
     @Transactional
     public UserResponse create(UserRequest request) {
+        if (userRepository.existsByEmail(request.email())) {
+            throw new BusinessRuleException("Já existe um usuário com o e-mail: " + request.email());
+        }
+
         User user = new User();
         user.setName(request.name());
         user.setEmail(request.email());
